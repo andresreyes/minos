@@ -1,0 +1,29 @@
+digraph cadena {
+  rankdir=TB; bgcolor="white";
+  graph [fontname="DejaVu Sans", nodesep=0.55, ranksep=0.30];
+  node [shape=box, style="rounded,filled", fontname="DejaVu Sans", fontsize=11,
+        color="#CBD5E0", fillcolor="#EDF2F7", fontcolor="#1F2933", height=0.48, width=1.7];
+  edge [color="#4A5568", arrowsize=0.65, penwidth=1.1];
+
+  LT [label="Líder técnico", fillcolor="#2B6CB0", fontcolor="white", color="#2B6CB0"];
+  AR [label="Arquitecto"];  VA [label="verificador", fillcolor="#FFFAF0", color="#B7791F", fontcolor="#7B341E", width=1.5, height=0.4, fontsize=10];
+  CO [label="Constructor"]; VC [label="verificador", fillcolor="#FFFAF0", color="#B7791F", fontcolor="#7B341E", width=1.5, height=0.4, fontsize=10];
+  PR [label="Pruebas"];     VP [label="verificador", fillcolor="#FFFAF0", color="#B7791F", fontcolor="#7B341E", width=1.5, height=0.4, fontsize=10];
+  SE [label="Seguridad"];   VS [label="verificador", fillcolor="#FFFAF0", color="#B7791F", fontcolor="#7B341E", width=1.5, height=0.4, fontsize=10];
+  SR [label="SRE"];         VR [label="verificador", fillcolor="#FFFAF0", color="#B7791F", fontcolor="#7B341E", width=1.5, height=0.4, fontsize=10];
+  DO [label="DevOps"];      VD [label="verificador", fillcolor="#FFFAF0", color="#B7791F", fontcolor="#7B341E", width=1.5, height=0.4, fontsize=10];
+  FIN [label="cierre", shape=oval, fillcolor="#F0FFF4", color="#2F855A", width=1.0, height=0.35, fontsize=10];
+
+  LT -> AR -> CO -> PR -> SE -> SR -> DO -> FIN;
+  {rank=same; AR; VA;} {rank=same; CO; VC;} {rank=same; PR; VP;}
+  {rank=same; SE; VS;} {rank=same; SR; VR;} {rank=same; DO; VD;}
+  AR->VA [color="#B7791F", style=dashed, arrowsize=0.55];
+  CO->VC [color="#B7791F", style=dashed, arrowsize=0.55];
+  PR->VP [color="#B7791F", style=dashed, arrowsize=0.55];
+  SE->VS [color="#B7791F", style=dashed, arrowsize=0.55];
+  SR->VR [color="#B7791F", style=dashed, arrowsize=0.55];
+  DO->VD [color="#B7791F", style=dashed, arrowsize=0.55];
+
+  VD -> LT [label="  bloqueo o RECHAZADO  ", fontsize=9, fontcolor="#7B341E",
+            color="#B7791F", constraint=false];
+}

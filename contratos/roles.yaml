@@ -1,0 +1,57 @@
+# Enrutamiento: qué cadena de roles atiende cada tipo de trabajo.
+# El líder técnico clasifica; esta tabla decide.
+
+version: 1
+
+tipos:
+  cambio_producto:
+    descripcion: Funcionalidad nueva o modificada en un componente existente.
+    cadena: [arquitecto, constructor, pruebas, seguridad, sre, devops, verificador]
+
+  correccion:
+    descripcion: Defecto en algo ya desplegado.
+    cadena: [constructor, pruebas, seguridad, devops, verificador]
+    nota: >
+      Salta arquitectura solo si el defecto no toca contratos. Si los toca,
+      el constructor debe bloquear y el líder técnico reencaminar por la
+      cadena completa.
+
+  cambio_infraestructura:
+    descripcion: Cambio en despliegue, red, configuración o plataforma.
+    cadena: [arquitecto, seguridad, sre, devops, verificador]
+
+  investigacion:
+    descripcion: Exploración sin entregable desplegable.
+    cadena: [arquitecto]
+    nota: >
+      Termina en documento. No entra a construcción sin una orden nueva.
+      NO lleva verificación adversarial: no hay artefacto desplegable que
+      proteger y el costo no se justifica.
+
+# Rol al que vuelve cualquier bloqueo, siempre.
+rol_de_retorno: lider-tecnico
+
+# El verificador no es un paso al final de la cadena: se intercala DESPUÉS de cada
+# rol productor. Aparece una sola vez en la lista porque el enrutador lo activa por
+# repetición, no por posición.
+# Escala de verificación, de la más barata a la más cara. Elige por lo que cuesta
+# el error, no por costumbre.
+#
+#   anclaje         — el rol responde solo con las fuentes dadas y declara lo que
+#                     no encuentra. Siempre activo; no es opcional.
+#   autoconsistencia — el rol resuelve por varios caminos y compara. Si divergen,
+#                     hay error, sin necesidad de saber la respuesta correcta.
+#                     Detecta fallos de razonamiento; NO detecta datos inventados
+#                     (los tres caminos parten del mismo dato falso y coinciden).
+#   adversarial     — otro agente, sin el razonamiento del autor, intenta
+#                     desmentir. Lo más caro y lo único que atrapa datos falsos.
+
+autoconsistencia:
+  activa_desde_impacto: indirecto
+  caminos: 3
+  # Aplica solo a afirmaciones cuyo error sería de razonamiento o cálculo.
+  tipos_aplicables: [comando, contrato]
+
+verificacion_adversarial:
+  activa_desde_impacto: indirecto
+  roles_verificados: [arquitecto, constructor, pruebas, seguridad, sre, devops]

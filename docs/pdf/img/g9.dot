@@ -1,0 +1,26 @@
+digraph cache {
+  rankdir=TB; bgcolor="white";
+  graph [fontname="DejaVu Sans", nodesep=0.25, ranksep=0.3];
+  node [shape=box, style="filled", fontname="DejaVu Sans", fontsize=9.5,
+        fontcolor="#1F2933", height=0.42, width=4.6];
+  edge [style=invis];
+
+  subgraph cluster_e {
+    label="  PREFIJO ESTABLE — se cachea, 41–80% más barato  "; fontsize=9;
+    fontname="DejaVu Sans"; fontcolor="#2F855A"; color="#2F855A"; style=rounded; penwidth=1.4;
+    E1 [label="constitucion.md", fillcolor="#F0FFF4", color="#2F855A"];
+    E2 [label="contratos/gates.yaml  ·  roles.yaml", fillcolor="#F0FFF4", color="#2F855A"];
+    E3 [label="roles/<rol>.md   (prompt del rol)", fillcolor="#F0FFF4", color="#2F855A"];
+    E4 [label="skills/<rol>/SKILL.md", fillcolor="#F0FFF4", color="#2F855A"];
+    E1->E2->E3->E4;
+  }
+  subgraph cluster_v {
+    label="  VOLÁTIL — nunca entra al prefijo  "; fontsize=9;
+    fontname="DejaVu Sans"; fontcolor="#C53030"; color="#C53030"; style=rounded; penwidth=1.4;
+    V1 [label="handoffs/*.json", fillcolor="#FFF5F5", color="#C53030"];
+    V2 [label="evidencia/**", fillcolor="#FFF5F5", color="#C53030"];
+    V3 [label="código leído  ·  solicitud del usuario", fillcolor="#FFF5F5", color="#C53030"];
+    V1->V2->V3;
+  }
+  E4 -> V1 [style=solid, color="#718096", arrowsize=0.6];
+}

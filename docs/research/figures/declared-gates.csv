@@ -1,0 +1,7 @@
+verification_type,label,count
+manual,Manual,7
+presencia_archivo,File presence,7
+presencia_campos,Field presence,4
+comparacion_hash,Hash comparison,2
+umbral_numerico,Numeric threshold,2
+umbral_severidad,Severity threshold,1

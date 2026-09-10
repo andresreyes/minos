@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Afirmaciones verificables emitidas por un rol",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id_orden", "rol", "fecha", "afirmaciones"],
+  "properties": {
+    "id_orden": { "type": "string" },
+    "rol": {
+      "type": "string",
+      "enum": ["arquitecto", "constructor", "pruebas", "seguridad", "sre", "devops"]
+    },
+    "fecha": { "type": "string" },
+    "afirmaciones": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "tipo", "referencia", "texto", "criticidad"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^AF-[0-9]{2,}$" },
+          "tipo": {
+            "type": "string",
+            "enum": ["codigo", "comando", "archivo", "contrato", "externo", "no_verificable"]
+          },
+          "referencia": {
+            "type": "string",
+            "minLength": 1,
+            "description": "ruta:linea, comando ejecutable, ruta de archivo, esquema+campo o URL. Vacío solo si tipo=no_verificable."
+          },
+          "texto": { "type": "string", "minLength": 15 },
+          "criticidad": { "type": "string", "enum": ["bloqueante", "informativa"] },
+          "supuestos": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Condiciones bajo las que la afirmación es cierta. Omitirlas es la causa más común de rechazo."
+          }
+        }
+      }
+    }
+  }
+}

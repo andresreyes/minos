@@ -1,0 +1,17 @@
+digraph cadena {
+  rankdir=LR; bgcolor="white";
+  graph [fontname="DejaVu Sans", nodesep=0.28, ranksep=0.45];
+  node [shape=box, style="rounded,filled", fontname="DejaVu Sans", fontsize=9.5,
+        fontcolor="#1F2933", height=0.5, width=1.6];
+  edge [color="#4A5568", arrowsize=0.6, fontsize=8.5, fontname="DejaVu Sans", fontcolor="#4A5568"];
+  subgraph cluster_bien {
+    label="  Encadenar: cada paso, un chat nuevo con la ventana limpia  ";
+    fontsize=9; fontname="DejaVu Sans"; fontcolor="#2F855A"; color="#2F855A";
+    style=rounded; penwidth=1.4;
+    C1 [label="extraer\npuntos clave", fillcolor="#F0FFF4", color="#2F855A"];
+    C2 [label="clasificar\npor categoría", fillcolor="#F0FFF4", color="#2F855A"];
+    C3 [label="redactar\nel resumen", fillcolor="#F0FFF4", color="#2F855A"];
+    C1 -> C2 [label=" <hallazgos> "];
+    C2 -> C3 [label=" <clasificados> "];
+  }
+}

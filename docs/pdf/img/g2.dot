@@ -1,0 +1,31 @@
+digraph capas {
+  rankdir=TB; bgcolor="white";
+  graph [fontname="DejaVu Sans", nodesep=0.35, ranksep=0.45];
+  node [shape=box, style="rounded,filled", fontname="DejaVu Sans", fontsize=11,
+        fontcolor="#1F2933", height=0.62];
+  edge [color="#718096", arrowsize=0.7];
+
+  subgraph cluster_c {
+    label="  COMPARTIDO entre equipos — no se toca  "; fontname="DejaVu Sans";
+    fontsize=10; fontcolor="#2B6CB0"; color="#2B6CB0"; style="rounded"; penwidth=1.4;
+    S [label="Catálogo de skills\nEL PROCEDIMIENTO\nqué consume, qué produce, cómo se verifica",
+       fillcolor="#EBF4FF", color="#2B6CB0"];
+  }
+  subgraph cluster_p {
+    label="  PROPIO de cada equipo — aquí se ajusta  "; fontname="DejaVu Sans";
+    fontsize=10; fontcolor="#2F855A"; color="#2F855A"; style="rounded"; penwidth=1.4;
+    G [label="contratos/gates.yaml\nLOS UMBRALES\ncobertura, severidad, cuándo se exige",
+       fillcolor="#F0FFF4", color="#2F855A"];
+    R [label="contratos/roles.yaml\nEL ENRUTAMIENTO\nqué cadena atiende cada tipo de trabajo",
+       fillcolor="#F0FFF4", color="#2F855A"];
+    P [label=".claude/settings.json\nLOS PERMISOS\nqué puede ejecutar cada rol",
+       fillcolor="#F0FFF4", color="#2F855A"];
+  }
+  A [label="Roles  ·  .claude/agents/\nLOS ACTORES — identidad y herramientas",
+     fillcolor="#EDF2F7", color="#CBD5E0"];
+
+  S -> A [label=" carga ", fontsize=9, fontcolor="#718096"];
+  A -> G [label=" se mide contra ", fontsize=9, fontcolor="#718096"];
+  A -> R [style=invis];
+  A -> P [style=invis];
+}

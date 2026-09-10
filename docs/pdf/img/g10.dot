@@ -1,0 +1,17 @@
+digraph zonas {
+  rankdir=TB; bgcolor="white";
+  graph [fontname="DejaVu Sans", nodesep=0.2, ranksep=0.22];
+  node [shape=box, style="filled", fontname="DejaVu Sans", fontsize=9.5,
+        fontcolor="#1F2933", height=0.5, width=5.4];
+  edge [style=invis];
+
+  Z1 [label="ZONA 1 · ANCLA   —   estable, se cachea, buena posición\nconstitución · gates · prompt del rol · SKILL.md",
+      fillcolor="#F0FFF4", color="#2F855A", penwidth=1.6];
+  Z2 [label="ZONA 2 · VOLUMEN   —   pesado y de baja señal, al medio a propósito\nhistorial · documentos recuperados · salidas largas",
+      fillcolor="#F7FAFC", color="#A0AEC0", penwidth=1.2];
+  Z3 [label="ZONA 3 · FILO   —   la tarea, SIEMPRE lo último\nhandoff · afirmaciones · solicitud del usuario",
+      fillcolor="#EBF4FF", color="#2B6CB0", penwidth=1.6];
+  R  [label="✕  nada después del filo — cualquier coletilla empuja la tarea al medio",
+      fillcolor="#FFF5F5", color="#C53030", fontcolor="#742A2A", height=0.4, fontsize=9];
+  Z1->Z2->Z3->R;
+}

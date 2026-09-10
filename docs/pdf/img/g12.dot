@@ -1,0 +1,28 @@
+digraph arbol {
+  rankdir=LR; bgcolor="white";
+  graph [fontname="DejaVu Sans", nodesep=0.2, ranksep=0.5];
+  node [shape=box, style="rounded,filled", fontname="DejaVu Sans", fontsize=9.5,
+        fontcolor="#1F2933", height=0.44];
+  edge [color="#718096", arrowsize=0.6, fontsize=8.5, fontname="DejaVu Sans", fontcolor="#4A5568"];
+  Q1 [label="¿Aplica a TODA\ninteracción?", fillcolor="#EDF2F7", color="#718096"];
+  Q2 [label="¿Cambia con\nel tiempo?", fillcolor="#EDF2F7", color="#718096"];
+  Q3 [label="¿Debe sobrevivir\na esta sesión?", fillcolor="#EDF2F7", color="#718096"];
+  A1 [label="cabe en pocas líneas", fillcolor="#F7FAFC", color="#CBD5E0"];
+  A2 [label="es larga", fillcolor="#F7FAFC", color="#CBD5E0"];
+  B1 [label="la necesito ahora", fillcolor="#F7FAFC", color="#CBD5E0"];
+  B2 [label="no la necesito ahora", fillcolor="#F7FAFC", color="#CBD5E0"];
+  R1 [label="SYSTEM PROMPT", fillcolor="#F0FFF4", color="#2F855A"];
+  R2 [label="ARCHIVO O SKILL\nreferenciado, se carga\ncuando hace falta", fillcolor="#F0FFF4", color="#2F855A"];
+  R3 [label="HERRAMIENTA", fillcolor="#F0FFF4", color="#2F855A"];
+  R4 [label="NO LA TRAIGAS", fillcolor="#FFF5F5", color="#C53030", fontcolor="#742A2A"];
+  R5 [label="MEMORIA", fillcolor="#F0FFF4", color="#2F855A"];
+  R6 [label="USER PROMPT", fillcolor="#F0FFF4", color="#2F855A"];
+  Q1 -> A1 [label=" sí "]; A1 -> R1;
+  Q1 -> A2 [label=" sí "]; A2 -> R2;
+  Q1 -> Q2 [label=" no ", style=dashed];
+  Q2 -> B1 [label=" sí "]; B1 -> R3;
+  Q2 -> B2 [label=" sí "]; B2 -> R4;
+  Q2 -> Q3 [label=" no ", style=dashed];
+  Q3 -> R5 [label=" sí "]; Q3 -> R6 [label=" no "];
+  {rank=same; Q1; Q2; Q3;}
+}

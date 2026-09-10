@@ -1,0 +1,184 @@
+# Gates del equipo. ESTE es el archivo que se ajusta al adoptar el framework.
+# Los SKILL.md nombran los gates; los umbrales viven aquí y solo aquí.
+#
+# activo_si: en qué nivel de impacto declarado se exige el gate.
+#            valores: siempre | indirecto | directo
+# anulable:  si el líder técnico puede anularlo con motivo. false = nunca.
+
+version: 1
+
+gates:
+  G1_alcance_acotado:
+    rol: lider-tecnico
+    descripcion: La orden nombra un entregable único y un impacto declarado.
+    verificacion: presencia_campos
+    campos: [alcance, impacto, rol_destino]
+    activo_si: siempre
+    anulable: false
+
+  GC_cierre_completo:
+    rol: lider-tecnico
+    descripcion: Todos los gates activos están aprobados o no_aplica con justificación.
+    verificacion: manual
+    activo_si: siempre
+    anulable: false
+
+  GC2_excepciones_con_vencimiento:
+    rol: lider-tecnico
+    descripcion: Toda anulación registra autor, fecha, motivo y vencimiento.
+    verificacion: presencia_campos
+    campos: [gate, autor, fecha, motivo, vence]
+    activo_si: siempre
+    anulable: false
+
+  G2_impacto_declarado:
+    rol: arquitecto
+    descripcion: Matriz de impacto lista componentes tocados y no tocados.
+    verificacion: presencia_archivo
+    patron: "docs/disenos/*.md"
+    activo_si: siempre
+    anulable: false
+
+  G2b_contrato_versionado:
+    rol: arquitecto
+    descripcion: Todo cambio de contrato declara si es aditivo o rompiente.
+    verificacion: manual
+    activo_si: indirecto
+    anulable: true
+
+  G3_artefactos_intactos:
+    rol: constructor
+    descripcion: Los componentes declarados "no se tocan" conservan su hash.
+    verificacion: comparacion_hash
+    activo_si: siempre
+    anulable: false
+
+  G3b_pruebas_unitarias:
+    rol: constructor
+    descripcion: Existen pruebas unitarias para el código nuevo.
+    verificacion: manual
+    activo_si: siempre
+    anulable: true
+
+  G4_certificado_en_ambiente:
+    rol: pruebas
+    descripcion: Evidencia de ejecución con ambiente y versión declarados.
+    verificacion: presencia_archivo
+    patron: "evidencia/pruebas/*"
+    activo_si: siempre
+    anulable: false
+
+  G4b_cobertura_minima:
+    rol: pruebas
+    descripcion: Cobertura de líneas del código nuevo.
+    verificacion: umbral_numerico
+    umbral: 70          # <-- AJUSTAR: porcentaje mínimo del equipo
+    activo_si: siempre
+    anulable: true
+
+  G4c_regresion_ejecutada:
+    rol: pruebas
+    descripcion: Casos de regresión de la matriz de impacto ejecutados.
+    verificacion: manual
+    activo_si: indirecto
+    anulable: true
+
+  G5_dictamen_emitido:
+    rol: seguridad
+    descripcion: Existe dictamen firmado con hallazgos y criterios de cierre.
+    verificacion: presencia_archivo
+    patron: "evidencia/seguridad/*"
+    activo_si: siempre
+    anulable: false
+
+  G5b_sin_hallazgos_sobre_umbral:
+    rol: seguridad
+    descripcion: Ningún hallazgo por encima de la severidad tolerada.
+    verificacion: umbral_severidad
+    severidad_maxima: media    # <-- AJUSTAR: baja | media | alta
+    activo_si: siempre
+    anulable: false
+
+  G5c_secretos_ausentes:
+    rol: seguridad
+    descripcion: No hay secretos en repo, paquete ni logs.
+    verificacion: manual
+    activo_si: siempre
+    anulable: false
+
+  G6_observabilidad_definida:
+    rol: sre
+    descripcion: Objetivos, alertas y runbook definidos para lo desplegado.
+    verificacion: presencia_archivo
+    patron: "docs/runbooks/*.md"
+    activo_si: directo
+    anulable: false
+
+  G6b_reversibilidad_probada:
+    rol: sre
+    descripcion: La reversión se ejecutó en ambiente no productivo y quedó registrada.
+    verificacion: presencia_archivo
+    patron: "evidencia/reversion/*"
+    activo_si: directo
+    anulable: false
+
+  G6c_retencion_declarada:
+    rol: sre
+    descripcion: Política de retención de la telemetría generada.
+    verificacion: manual
+    activo_si: directo
+    anulable: true
+
+  GV_verificacion_ejecutada:
+    rol: verificador
+    descripcion: Las afirmaciones del rol pasaron por verificación adversarial independiente.
+    verificacion: presencia_archivo
+    patron: "evidencia/verificacion/*"
+    activo_si: indirecto
+    anulable: false
+
+  GV2_sin_rechazos_bloqueantes:
+    rol: verificador
+    descripcion: Ninguna afirmación bloqueante quedó RECHAZADA.
+    verificacion: umbral_numerico
+    umbral: 0
+    activo_si: indirecto
+    anulable: false
+
+  GV3_cobertura_bloqueantes:
+    rol: verificador
+    descripcion: Todas las afirmaciones bloqueantes fueron verificadas, no muestreadas.
+    verificacion: manual
+    activo_si: indirecto
+    anulable: false
+
+  G7_insumos_completos:
+    rol: devops
+    descripcion: Dictamen de seguridad, definición SRE y paquete certificado presentes.
+    verificacion: presencia_campos
+    campos: [dictamen, runbook, paquete]
+    activo_si: directo
+    anulable: false
+
+  G7b_hash_coincide:
+    rol: devops
+    descripcion: El artefacto a instalar es idéntico al certificado.
+    verificacion: comparacion_hash
+    activo_si: directo
+    anulable: false
+
+  G7c_ventana_autorizada:
+    rol: devops
+    descripcion: Existe ventana aprobada con autorizador nombrado.
+    verificacion: presencia_campos
+    campos: [ventana, autorizador]
+    activo_si: directo
+    anulable: false
+
+  G7d_verificacion_posterior:
+    rol: devops
+    descripcion: Verificación tras el despliegue ejecutada y registrada.
+    verificacion: presencia_archivo
+    patron: "evidencia/despliegue/*"
+    activo_si: directo
+    anulable: false

@@ -1,0 +1,24 @@
+digraph fuentes {
+  rankdir=LR; bgcolor="white";
+  graph [fontname="DejaVu Sans", nodesep=0.22, ranksep=0.95];
+  node [shape=box, style="rounded,filled", fontname="DejaVu Sans", fontsize=9,
+        fontcolor="#1F2933", height=0.46];
+  edge [color="#718096", arrowsize=0.6, fontsize=8, fontname="DejaVu Sans", fontcolor="#4A5568"];
+
+  X  [label="agentic-patterns-\ntypescript\nsin licencia", fillcolor="#FFF5F5", color="#C53030", fontcolor="#742A2A"];
+  S5 [label="Coder\nplataforma", fillcolor="#EBF4FF", color="#2B6CB0"];
+  S4 [label="AGENTS.md\nLinux Foundation", fillcolor="#EBF4FF", color="#2B6CB0"];
+  S3 [label="github/spec-kit\nMIT", fillcolor="#EBF4FF", color="#2B6CB0"];
+  S2 [label="cloudflare/\nsecurity-audit-skill\nMIT", fillcolor="#EBF4FF", color="#2B6CB0"];
+S1 [label="Formato Agent Skills\nformato abierto", fillcolor="#EBF4FF", color="#2B6CB0"];
+
+  TX [label="DESCARTADO\ncapa equivocada", fillcolor="#FFF5F5", color="#C53030", fontcolor="#742A2A"];
+  T5 [label="Artículo 6: límites\nen la infraestructura", fillcolor="#F0FFF4", color="#2F855A"];
+  T4 [label="Portabilidad multiplataforma", fillcolor="#F0FFF4", color="#2F855A"];
+  T3 [label="Constitución del proyecto", fillcolor="#F0FFF4", color="#2F855A"];
+  T2 [label="Verificación adversarial\n+ evidencia validada", fillcolor="#F0FFF4", color="#2F855A"];
+T1 [label="Estructura del catálogo", fillcolor="#F0FFF4", color="#2F855A"];
+
+  X->TX [color="#C53030", style=dashed];
+  S5->T5; S4->T4; S3->T3; S2->T2; S1->T1;
+}

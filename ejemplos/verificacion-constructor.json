@@ -1,0 +1,32 @@
+{
+  "id_orden": "ORD-001",
+  "rol_verificado": "constructor",
+  "fecha": "2026-08-12",
+  "cobertura": {
+    "bloqueantes_totales": 2,
+    "bloqueantes_verificadas": 2,
+    "informativas_muestreadas": 1
+  },
+  "veredictos": [
+    {
+      "afirmacion": "AF-01",
+      "veredicto": "CORREGIDO",
+      "evidencia": "reintentos.py:47 fija el tope en 30 s, pero la línea 52 lo multiplica por el factor de jitter (hasta 1.5x), así que el máximo real es 45 s.",
+      "correccion": {
+        "campo": "texto",
+        "decia": "tope de 30 segundos por intento",
+        "debe_decir": "tope de 30 s antes del jitter; máximo efectivo 45 s"
+      }
+    },
+    {
+      "afirmacion": "AF-02",
+      "veredicto": "VERIFICADO",
+      "evidencia": "sha256sum -c inventario.sha256 devuelve OK en los 14 archivos declarados intocados. Salida completa en evidencia/pruebas/hashes.log"
+    },
+    {
+      "afirmacion": "AF-03",
+      "veredicto": "RECHAZADO",
+      "evidencia": "test_reintentos.py cubre dos caminos (éxito tras reintento, agotamiento). El tercero, error no reintentable, no tiene caso: no aparece ninguna referencia a ErrorPermanente en el archivo."
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Veredictos de verificación adversarial",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id_orden", "rol_verificado", "fecha", "veredictos"],
+  "properties": {
+    "id_orden": { "type": "string" },
+    "rol_verificado": {
+      "type": "string",
+      "enum": ["arquitecto", "constructor", "pruebas", "seguridad", "sre", "devops"]
+    },
+    "fecha": { "type": "string" },
+    "cobertura": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["bloqueantes_totales", "bloqueantes_verificadas", "informativas_muestreadas"],
+      "properties": {
+        "bloqueantes_totales": { "type": "integer" },
+        "bloqueantes_verificadas": { "type": "integer" },
+        "informativas_muestreadas": { "type": "integer" }
+      }
+    },
+    "veredictos": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["afirmacion", "veredicto", "evidencia"],
+        "properties": {
+          "afirmacion": { "type": "string", "pattern": "^AF-[0-9]{2,}$" },
+          "veredicto": { "type": "string", "enum": ["VERIFICADO", "CORREGIDO", "RECHAZADO"] },
+          "evidencia": {
+            "type": "string",
+            "minLength": 10,
+            "description": "Lo que comprobaste y qué devolvió. No es evidencia una opinión."
+          },
+          "correccion": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["campo", "decia", "debe_decir"],
+            "properties": {
+              "campo": { "type": "string" },
+              "decia": { "type": "string" },
+              "debe_decir": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+digraph capas4 {
+  rankdir=TB; bgcolor="white";
+  graph [fontname="DejaVu Sans", nodesep=0.3, ranksep=0.34];
+  node [shape=box, style="rounded,filled", fontname="DejaVu Sans", fontsize=10,
+        fontcolor="#1F2933", height=0.62, width=5.6];
+  edge [style=invis];
+
+  C [label="CONSTITUCIÓN — constitucion.md\n¿Qué no se puede cruzar nunca?   ·   NO se ajusta",
+     fillcolor="#FFF5F5", color="#C53030", penwidth=1.6];
+  G [label="GATES — contratos/gates.yaml\n¿Cuánto exigimos?   ·   Lo ajusta cada equipo",
+     fillcolor="#F0FFF4", color="#2F855A", penwidth=1.4];
+  R [label="CONTRATO DEL REPO — CLAUDE.md / AGENTS.md\n¿Cómo se opera?   ·   Generado, rara vez cambia",
+     fillcolor="#EBF4FF", color="#2B6CB0", penwidth=1.2];
+  S [label="SKILLS — catálogo compartido\n¿Cómo se hace cada paso?   ·   Por PR al catálogo",
+     fillcolor="#EDF2F7", color="#718096"];
+  C -> G -> R -> S;
+}

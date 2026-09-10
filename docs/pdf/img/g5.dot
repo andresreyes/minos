@@ -1,0 +1,25 @@
+digraph mod {
+  rankdir=LR; bgcolor="white";
+  graph [fontname="DejaVu Sans", nodesep=0.18, ranksep=0.9];
+  node [shape=box, style="rounded,filled", fontname="DejaVu Sans", fontsize=10,
+        fontcolor="#1F2933", height=0.44];
+  edge [color="#718096", arrowsize=0.6];
+
+  Q6 [label="Cambiar un procedimiento", fillcolor="#FFF5F5", color="#C53030", fontcolor="#742A2A"];
+  Q5 [label="Agregar un rol", fillcolor="#F7FAFC", color="#CBD5E0"];
+  Q4 [label="Subir o bajar rigor", fillcolor="#F7FAFC", color="#CBD5E0"];
+  Q3 [label="Restringir permisos", fillcolor="#F7FAFC", color="#CBD5E0"];
+  Q7 [label="Cambiar el prompt de un rol", fillcolor="#F7FAFC", color="#CBD5E0"];
+  Q2 [label="Acortar la cadena", fillcolor="#F7FAFC", color="#CBD5E0"];
+Q1 [label="Cambiar un umbral", fillcolor="#F7FAFC", color="#CBD5E0"];
+
+  A6 [label="PR al catálogo\ncompartido", fillcolor="#FFF5F5", color="#C53030", fontcolor="#742A2A"];
+  A5 [label="skill + agente + gate\n+ roles.yaml", fillcolor="#FFFAF0", color="#B7791F"];
+  A4 [label="roles.yaml →\nactiva_desde_impacto", fillcolor="#F0FFF4", color="#2F855A"];
+  A3 [label=".claude/settings.json", fillcolor="#F0FFF4", color="#2F855A"];
+  A7 [label=".claude/agents/<rol>.md", fillcolor="#F0FFF4", color="#2F855A"];
+  A2 [label="contratos/roles.yaml", fillcolor="#F0FFF4", color="#2F855A"];
+A1 [label="contratos/gates.yaml", fillcolor="#F0FFF4", color="#2F855A"];
+
+  Q6->A6; Q7->A7; Q5->A5; Q4->A4; Q3->A3; Q2->A2; Q1->A1;
+}

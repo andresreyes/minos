@@ -1,0 +1,25 @@
+digraph reuso {
+  rankdir=TB; bgcolor="white";
+  graph [fontname="DejaVu Sans", nodesep=0.45, ranksep=0.5];
+  node [shape=box, style="rounded,filled", fontname="DejaVu Sans", fontsize=10,
+        fontcolor="#1F2933", height=0.55];
+  edge [color="#718096", arrowsize=0.7, fontsize=9, fontname="DejaVu Sans", fontcolor="#4A5568"];
+
+  CAT [label="agentic-sdlc-skills\nCatálogo compartido  ·  tag v1.1.0",
+       fillcolor="#EBF4FF", color="#2B6CB0", width=4.2];
+
+  E1 [label="Equipo A\nframework propio", fillcolor="#F7FAFC", color="#CBD5E0"];
+  E2 [label="Equipo B\nframework propio", fillcolor="#F7FAFC", color="#CBD5E0"];
+  E3 [label="Equipo C\nframework propio", fillcolor="#F7FAFC", color="#CBD5E0"];
+
+  G1 [label="gates.yaml\ncobertura 80%\nseveridad: baja", fillcolor="#F0FFF4", color="#2F855A", fontsize=9];
+  G2 [label="gates.yaml\ncobertura 60%\nseveridad: media", fillcolor="#F0FFF4", color="#2F855A", fontsize=9];
+  G3 [label="gates.yaml\ncobertura 70%\nseveridad: media", fillcolor="#F0FFF4", color="#2F855A", fontsize=9];
+
+  CAT -> E1 [label=" submódulo\n pin por SHA "];
+  CAT -> E2 [label=" submódulo\n pin por SHA "];
+  CAT -> E3 [label=" submódulo\n pin por SHA "];
+  E1 -> G1; E2 -> G2; E3 -> G3;
+  {rank=same; E1; E2; E3;}
+  {rank=same; G1; G2; G3;}
+}

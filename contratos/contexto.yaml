@@ -1,0 +1,61 @@
+# Orden de carga del contexto — tres zonas.
+#
+# Resuelve una tensión real entre dos optimizaciones:
+#
+#   - La CACHÉ exige que lo estable vaya primero: el proveedor reutiliza el cómputo
+#     del prefijo idéntico. Medición pública de referencia: 41–80% menos costo de
+#     API, 13–31% mejor time-to-first-token.
+#   - La ATENCIÓN exige que lo importante vaya al principio O AL FINAL. Al inicio o
+#     al final rinde 70–75% de exactitud; en la mitad, 55–60%.
+#
+# Puestas juntas mal, el prefijo estable empuja la tarea real hacia la mitad — la
+# peor posición — y se gana en costo lo que se pierde en exactitud.
+#
+# Tres zonas en vez de dos lo resuelven: el ancla ocupa el inicio (cacheada y bien
+# posicionada), la tarea ocupa el final (bien posicionada), y el volumen de baja
+# señal ocupa el medio, que es donde menos daño hace.
+
+version: 2
+
+zonas:
+
+  # ZONA 1 — ANCLA. Estable entre invocaciones del mismo rol: se cachea.
+  # Ocupa la primera posición, que también es buena para la atención.
+  ancla:
+    - constitucion.md
+    - contratos/gates.yaml
+    - contratos/roles.yaml
+    - roles/<rol>.md
+    - .claude/skills/<rol>/SKILL.md
+
+  # ZONA 2 — VOLUMEN. Pesado y de baja señal por token. Va al medio a propósito.
+  volumen:
+    - historial de la conversación
+    - documentos recuperados en este turno
+    - salidas largas de herramientas
+
+  # ZONA 3 — FILO. La tarea. SIEMPRE lo último.
+  filo:
+    - handoffs/<el más reciente>.json
+    - evidencia/afirmaciones/<archivo> (para el verificador)
+    - la solicitud del usuario
+
+# LA REGLA QUE HACE QUE FUNCIONE
+# Nunca escribas nada después de la zona filo. Ni un recordatorio, ni un
+# "responde en formato X", ni una repetición de las reglas. Cualquier coletilla
+# empuja la tarea al medio y la degrada.
+#
+# Si una restricción es crítica y hay que repetirla, va en la ZONA ANCLA —donde ya
+# está cacheada y bien posicionada—, no como cierre.
+regla_de_cierre: nada_despues_del_filo
+
+cache:
+  minimo_tokens_prefijo: 1024   # por debajo, el overhead de escribir caché no se recupera
+  ttl_minutos: 60               # partir una orden en varios días paga el prefijo cada vez
+
+# Presupuesto por rol. Si se excede, revisar antes de subir el límite:
+# la pregunta correcta es "¿si quito esta línea, cambia alguna respuesta?"
+presupuesto:
+  ancla_max_palabras: 4000
+  herramientas_max: 20          # un benchmark citado: falló con 46, funcionó con 19
+  historial_max_porcentaje: 60  # por encima, falta administrar la recencia

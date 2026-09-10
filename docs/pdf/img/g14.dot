@@ -1,0 +1,24 @@
+digraph audit {
+  rankdir=TB; bgcolor="white";
+  graph [fontname="DejaVu Sans", nodesep=0.12, ranksep=0.14];
+  node [shape=box, style="filled", fontname="DejaVu Sans", fontsize=9,
+        fontcolor="#1F2933", width=3.0, height=0.72];
+  edge [style=invis];
+  H0 [label="", fillcolor="white", color="white", width=2.0, height=0.4];
+  H1 [label="NO lo tenía en contexto", fillcolor="#EDF2F7", color="#CBD5E0", height=0.4];
+  H2 [label="SÍ lo tenía en contexto", fillcolor="#EDF2F7", color="#CBD5E0", height=0.4];
+  L1 [label="CAMBIÓ\nla respuesta", fillcolor="#EDF2F7", color="#CBD5E0", width=2.0];
+  A [label="FALTABA\nseñal real → súbela al system\nprompt o a una herramienta",
+     fillcolor="#F0FFF4", color="#2F855A", penwidth=1.4];
+  B [label="MAL UBICADA\nahí no la usaba → acorta o mueve,\nno la dupliques",
+     fillcolor="#FFFAF0", color="#B7791F", penwidth=1.4];
+  L2 [label="NO cambió\nla respuesta", fillcolor="#EDF2F7", color="#CBD5E0", width=2.0];
+  C [label="RUIDO\nno aporta → no la traigas más",
+     fillcolor="#FFF5F5", color="#C53030", penwidth=1.4];
+  D [label="DUPLICADO\nya estaba y funcionaba →\ndeja de repetirla",
+     fillcolor="#F7FAFC", color="#A0AEC0", penwidth=1.2];
+  {rank=same; H0; H1; H2;}
+  {rank=same; L1; A; B;}
+  {rank=same; L2; C; D;}
+  H0->L1->L2; H1->A->C; H2->B->D;
+}

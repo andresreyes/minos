@@ -1,0 +1,16 @@
+{
+  "id": "ORD-001",
+  "fecha": "2026-08-06T10:00:00Z",
+  "tipo": "cambio_producto",
+  "impacto": "indirecto",
+  "alcance": "Agregar reintentos con backoff al consumidor de eventos",
+  "rol_emisor": "lider-tecnico",
+  "rol_destino": "arquitecto",
+  "entrada": ["solicitud del usuario"],
+  "salida": ["handoffs/2026-08-06-01-lider-tecnico.json"],
+  "gates": [
+    {"id": "G1_alcance_acotado", "estado": "aprobado", "evidencia": "handoffs/2026-08-06-01-lider-tecnico.json"}
+  ],
+  "bloqueos": [],
+  "notas": "Ejemplo de arranque de cadena."
+}

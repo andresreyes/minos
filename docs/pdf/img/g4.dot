@@ -1,0 +1,22 @@
+digraph adversarial {
+  rankdir=LR; bgcolor="white";
+  graph [fontname="DejaVu Sans", nodesep=0.32, ranksep=0.55];
+  node [shape=box, style="rounded,filled", fontname="DejaVu Sans", fontsize=10,
+        fontcolor="#1F2933", height=0.5];
+  edge [color="#4A5568", arrowsize=0.7, fontsize=9, fontname="DejaVu Sans", fontcolor="#4A5568"];
+
+  ROL [label="Rol productor", fillcolor="#EDF2F7", color="#CBD5E0"];
+  AF  [label="afirmaciones.json\nAF-01  tipo: codigo\nref: reintentos.py:47\n«tope de 30 s»\ncriticidad: bloqueante",
+       shape=note, fillcolor="#FFFFF0", color="#B7791F", fontsize=9];
+  VER [label="Verificador\nSOLO LECTURA", fillcolor="#FFFAF0", color="#B7791F", fontcolor="#7B341E"];
+  SRC [label="Código fuente", shape=cylinder, fillcolor="#F7FAFC", color="#CBD5E0", fontsize=9];
+  CTX [label="handoffs/  ·  razonamiento\ndel autor  ·  conversación",
+       fillcolor="#FFF5F5", color="#C53030", fontcolor="#742A2A", fontsize=9];
+  OUT [label="VERIFICADO\nCORREGIDO\nRECHAZADO", fillcolor="#F0FFF4", color="#2F855A", fontsize=10];
+
+  ROL -> AF [label=" emite "];
+  AF -> VER;
+  SRC -> VER [label=" lee "];
+  CTX -> VER [label="  BLOQUEADO  ", color="#C53030", fontcolor="#C53030", style=dashed, arrowhead=tee];
+  VER -> OUT [label=" veredicto\n cerrado "];
+}

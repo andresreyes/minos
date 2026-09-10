@@ -1,0 +1,25 @@
+digraph port {
+  rankdir=LR; bgcolor="white";
+  graph [fontname="DejaVu Sans", nodesep=0.22, ranksep=0.85];
+  node [shape=box, style="rounded,filled", fontname="DejaVu Sans", fontsize=9.5,
+        fontcolor="#1F2933", height=0.42];
+  edge [color="#718096", arrowsize=0.6];
+
+  subgraph cluster_f {
+    label="  FUENTE DE VERDAD — se edita aquí  "; fontsize=9; fontname="DejaVu Sans";
+    fontcolor="#2B6CB0"; color="#2B6CB0"; style=rounded; penwidth=1.3;
+    F1 [label="roles/*.md", fillcolor="#EBF4FF", color="#2B6CB0"];
+    F2 [label="constitucion.md", fillcolor="#EBF4FF", color="#2B6CB0"];
+    F3 [label="contratos/", fillcolor="#EBF4FF", color="#2B6CB0"];
+  }
+  GEN [label="generar-\nadaptadores.sh", fillcolor="#FFFAF0", color="#B7791F", fontcolor="#7B341E"];
+  subgraph cluster_a {
+    label="  GENERADO — no editar a mano  "; fontsize=9; fontname="DejaVu Sans";
+    fontcolor="#2F855A"; color="#2F855A"; style=rounded; penwidth=1.3;
+    A1 [label="CLAUDE.md\n.claude/agents/\nClaude Code", fillcolor="#F0FFF4", color="#2F855A"];
+    A2 [label="AGENTS.md\nCodex · Cursor\nWindsurf · Cline", fillcolor="#F0FFF4", color="#2F855A"];
+    A3 [label="~/.agents/skills\nenlace al catálogo", fillcolor="#F0FFF4", color="#2F855A"];
+  }
+  F1->GEN; F2->GEN; F3->GEN;
+  GEN->A1; GEN->A2; GEN->A3;
+}

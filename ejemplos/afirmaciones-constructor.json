@@ -1,0 +1,29 @@
+{
+  "id_orden": "ORD-001",
+  "rol": "constructor",
+  "fecha": "2026-08-12",
+  "afirmaciones": [
+    {
+      "id": "AF-01",
+      "tipo": "codigo",
+      "referencia": "src/consumidor/reintentos.py:47",
+      "texto": "El backoff exponencial tiene tope de 30 segundos por intento",
+      "criticidad": "bloqueante",
+      "supuestos": ["La variable REINTENTO_MAX no está sobrescrita en el ambiente"]
+    },
+    {
+      "id": "AF-02",
+      "tipo": "comando",
+      "referencia": "sha256sum -c inventario.sha256",
+      "texto": "Los componentes declarados intocados en la matriz conservan su hash",
+      "criticidad": "bloqueante"
+    },
+    {
+      "id": "AF-03",
+      "tipo": "archivo",
+      "referencia": "pruebas/unit/test_reintentos.py",
+      "texto": "Existen pruebas unitarias para los tres caminos de reintento",
+      "criticidad": "informativa"
+    }
+  ]
+}

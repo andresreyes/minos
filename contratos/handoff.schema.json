@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Handoff entre roles del ciclo de vida",
+  "type": "object",
+  "required": ["id", "fecha", "rol_emisor", "rol_destino", "entrada", "salida", "gates", "bloqueos"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Z]{2,4}-[0-9]{3,}$",
+      "description": "Identificador de la orden de trabajo. Constante en toda la cadena."
+    },
+    "fecha": { "type": "string", "format": "date-time" },
+    "tipo": {
+      "type": "string",
+      "enum": ["cambio_producto", "correccion", "cambio_infraestructura", "investigacion"]
+    },
+    "impacto": {
+      "type": "string",
+      "enum": ["ninguno", "indirecto", "directo"],
+      "description": "Impacto en productivo. Determina qué gates se activan."
+    },
+    "alcance": { "type": "string", "minLength": 10 },
+    "rol_emisor": {
+      "type": "string",
+      "enum": ["lider-tecnico", "arquitecto", "constructor", "pruebas", "seguridad", "sre", "devops"]
+    },
+    "rol_destino": {
+      "type": ["string", "null"],
+      "enum": ["lider-tecnico", "arquitecto", "constructor", "pruebas", "seguridad", "sre", "devops", null]
+    },
+    "entrada": { "type": "array", "items": { "type": "string" } },
+    "salida": { "type": "array", "items": { "type": "string" } },
+    "gates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "estado", "evidencia"],
+        "properties": {
+          "id": { "type": "string" },
+          "estado": { "type": "string", "enum": ["aprobado", "rechazado", "no_aplica", "pendiente"] },
+          "evidencia": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Ruta a archivo o salida de comando. Nunca prosa afirmativa."
+          }
+        }
+      }
+    },
+    "anulaciones": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["gate", "autor", "fecha", "motivo"],
+        "properties": {
+          "gate": { "type": "string" },
+          "autor": { "type": "string" },
+          "fecha": { "type": "string" },
+          "motivo": { "type": "string", "minLength": 20 },
+          "vence": { "type": "string" }
+        }
+      }
+    },
+    "bloqueos": { "type": "array", "items": { "type": "string" } },
+    "notas": { "type": "string" }
+  }
+}

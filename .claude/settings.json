@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "deny": [
+      "Bash(git push --force:*)",
+      "Bash(git push origin main:*)",
+      "Read(./**/.env)",
+      "Read(./**/*credential*)",
+      "Read(./**/*secret*)"
+    ],
+    "ask": [
+      "Bash(git push:*)",
+      "Bash(terraform apply:*)",
+      "Bash(kubectl:*)"
+    ]
+  }
+}
