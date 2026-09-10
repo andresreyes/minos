@@ -1,113 +1,140 @@
 <h1 align="center">Minos</h1>
 
 <p align="center">
-  <em>El juez que pesa cada entrega.</em><br>
-  SDLC agéntico con roles separados, contratos entre ellos y gates verificables.
+  <em>The judge that weighs every delivery.</em><br>
+  Agentic SDLC with separated roles, contracts between them, and verifiable gates.
 </p>
 
 <p align="center">
   <img alt="version" src="https://img.shields.io/badge/version-1.7.0-blue">
   <img alt="license" src="https://img.shields.io/badge/license-MIT-green">
   <img alt="roles" src="https://img.shields.io/badge/roles-8-orange">
-  <img alt="gates" src="https://img.shields.io/badge/gates%20declarados-23-lightgrey">
+  <img alt="gates" src="https://img.shields.io/badge/declared%20gates-23-lightgrey">
 </p>
 
 <p align="center">
-  <strong>Español</strong> · <a href="README.en.md">English</a>
+  <a href="README.md">Español</a> · <strong>English</strong>
 </p>
 
 ---
 
-En la mitología, Minos juzga a cada alma que se le presenta. Aquí es lo mismo: un
-**verificador adversarial** se intercala después de cada rol, recibe solo las
-afirmaciones y el código —nunca el razonamiento del autor— y emite veredicto.
+In myth, Minos judges every soul brought before him. Here it works the same way: an
+**adversarial verifier** is interleaved after each role, receives only the claims and
+the code — never the author's reasoning — and returns a verdict.
 
-Framework estándar para desarrollar con agentes dentro de un workspace de Coder,
-con roles separados, contratos entre ellos y gates verificables.
+A standard framework for developing with agents inside a Coder workspace, with
+separated roles, contracts between them, and verifiable gates.
 
-Pensado para equipos cuyo contenedor solo tiene salida a GitHub: **todo vive en el
-repositorio**, no hay nada que configurar en la consola de Coder.
+Built for teams whose container can only reach GitHub: **everything lives in the
+repository**, there is nothing to configure in the Coder console.
 
-## Qué trae el paquete
+## What the package contains
 
 ```
-minos/          este repo — roles, gates, contratos, scripts
+minos/                    this repo — roles, gates, contracts, scripts
   docs/pdf/
-    Framework-SDLC-Agentico-Guia.pdf      28 pág · implantar el framework
-    Fundamentos-Trabajar-con-Agentes.pdf   7 pág · fundamentos, sirve solo
+    Framework-SDLC-Agentico-Guia.pdf      28 pp · implementing the framework
+    Fundamentos-Trabajar-con-Agentes.pdf   7 pp · fundamentals, stands alone
 
-minos-skills/             el catálogo (submódulo en .claude/skills)
-  FOUNDATIONS.md   los fundamentos — leer primero
-  AUTHORING.md     cómo se escribe una skill
-  CONTEXT.md       qué información entra a la ventana
-  PRECISION.md     cómo hacer que su salida sea comprobable
-  <rol>/SKILL.md   los ocho procedimientos
+minos-skills/             the catalog (submodule at .claude/skills)
+  FOUNDATIONS.md   the fundamentals — read this first
+  AUTHORING.md     how a skill is written
+  CONTEXT.md       what information enters the window
+  PRECISION.md     how to make its output checkable
+  <role>/SKILL.md  the eight procedures
 ```
 
-Las cuatro guías del catálogo se montan con el submódulo, así que el agente las tiene
-disponibles dentro del workspace. `CLAUDE.md` y `AGENTS.md` las referencian y
-extraen de `FOUNDATIONS.md` las tres reglas que aplican a toda invocación de un rol:
-salida honesta, anclaje a fuentes, y chat nuevo ante error de base.
+The catalog's four guides are mounted with the submodule, so the agent has them
+available inside the workspace. `CLAUDE.md` and `AGENTS.md` reference them and pull
+from `FOUNDATIONS.md` the three rules that apply to every role invocation: honest
+output, grounding in sources, and a fresh chat on a foundational error.
 
-## Qué resuelve
+## What it solves
 
-Un agente sin estructura hace las siete cosas a la vez: diseña, implementa, se
-autoevalúa y despliega. Nadie puede auditar eso. Aquí cada rol tiene entrada,
-salida y un gate verificable, y el trabajo pasa de uno a otro por un archivo JSON.
+An agent with no structure does all seven things at once: it designs, implements,
+grades its own work, and deploys. Nobody can audit that. Here each role has an input,
+an output, and a verifiable gate, and work moves from one to the next through a JSON
+file.
 
-## Los siete roles
+## The seven roles
 
-| Rol | Produce | No hace |
+| Role | Produces | Does not do |
 |---|---|---|
-| Líder técnico | Orden de trabajo, cierre | Diseñar, implementar |
-| Arquitecto | Diseño, contratos, matriz de impacto | Implementar |
-| Constructor | Código, pruebas unitarias, paquete | Decidir arquitectura, desplegar |
-| Pruebas | Certificación con evidencia | Corregir defectos |
-| Seguridad | Dictamen y hallazgos | Corregir hallazgos |
-| SRE | Objetivos, alertas, runbook, criterio de reversión | Desplegar |
-| DevOps | Manual, orden cerrada, ejecución | Diseñar, corregir |
-| **Verificador** | **Veredictos sobre las afirmaciones de cada rol** | **Corregir el artefacto** |
+| Tech lead | Work order, closure | Design, implement |
+| Architect | Design, contracts, impact matrix | Implement |
+| Builder | Code, unit tests, package | Decide architecture, deploy |
+| Testing | Certification with evidence | Fix defects |
+| Security | Ruling and findings | Fix findings |
+| SRE | Objectives, alerts, runbook, rollback criteria | Deploy |
+| DevOps | Manual, closed order, execution | Design, fix |
+| **Verifier** | **Verdicts on each role's claims** | **Fix the artifact** |
 
-El verificador no va al final: se intercala **después de cada rol**. Recibe solo el
-archivo de afirmaciones y el código, nunca el razonamiento del autor. Ver
+The verifier does not come last: it is interleaved **after every role**. It receives
+only the claims file and the code, never the author's reasoning. See
 `docs/05-verificacion-adversarial.md`.
 
-## Instalación
+## Installation
 
 ```bash
-git clone https://github.com/andresreyes/minos.git
+git clone https://github.com/<ORG>/minos.git
 cd minos
 ./scripts/bootstrap.sh
 ```
 
-> **Nota sobre el catálogo de skills.** `minos-skills` todavía no está publicado, así
-> que este repo **no** declara el submódulo: `.claude/skills/` viene con un marcador.
-> Cuando el catálogo esté en GitHub, monta el submódulo con la plantilla de
-> `docs/gitmodules.plantilla` y pínealo por SHA:
+> **A note on the skill catalog.** `minos-skills` is not published yet, so this repo
+> does **not** declare the submodule: `.claude/skills/` ships a placeholder. Once the
+> catalog is on GitHub, mount the submodule using the template in
+> `docs/gitmodules.plantilla` and pin it by SHA:
 >
 > ```bash
-> git submodule add -b main https://github.com/andresreyes/minos-skills.git .claude/skills
+> git submodule add -b main https://github.com/<ORG>/minos-skills.git .claude/skills
 > ```
 
-Para integrarlo al template de Coder, ver `coder/main.tf` y `docs/03-adopcion-coder.md`.
+To integrate it into the Coder template, see `coder/main.tf` and
+`docs/03-adopcion-coder.md`.
 
-## Uso
+## Usage
 
 ```
-/iniciar  Necesito agregar reintentos al consumidor de eventos
+/iniciar  I need to add retries to the event consumer
 ```
 
-El líder técnico acota, declara impacto y emite la orden. A partir de ahí:
-`/handoff` mueve la cadena, `/verificar` lanza la verificación adversarial del
-rol que acaba de terminar, y `/gate` muestra qué falta.
+The tech lead scopes the request, declares impact, and issues the order. From there:
+`/handoff` advances the chain, `/verificar` launches adversarial verification of the
+role that just finished, and `/gate` shows what is still missing.
 
-## Ajuste
+## Tuning
 
-Solo se toca `contratos/gates.yaml` y `contratos/roles.yaml`. Ver
-`docs/04-personalizacion.md`. Si te encuentras editando un `SKILL.md` para cambiar
-un umbral, el umbral estaba en el lugar equivocado.
+Only `contratos/gates.yaml` and `contratos/roles.yaml` are touched. See
+`docs/04-personalizacion.md`. If you find yourself editing a `SKILL.md` to change a
+threshold, the threshold was in the wrong place.
 
-## Versión
+## Version
 
-Ver `VERSION`. El catálogo de skills tiene su propio versionado y se pinea por SHA
-de submódulo, así que actualizarlo es siempre un commit explícito de este repo.
+See `VERSION`. The skill catalog carries its own versioning and is pinned by
+submodule SHA, so updating it is always an explicit commit in this repo.
+
+## Research
+
+- [Technical paper in English](docs/research/Agentic-SDLC-Paper-Andres-Reyes-EN-v1.1.pdf)
+- [Editable paper](docs/research/Agentic-SDLC-Paper-Andres-Reyes-EN-v1.1.docx)
+- [LinkedIn text](docs/research/linkedin-post.md)
+- [Figure data and vector assets](docs/research/figures/)
+
+## Evidence status
+
+Static inspection identifies 23 declared gates, including 7 manual ones. Non-manual
+declaration does not prove evaluator implementation. The advance-check script reads
+declared handoff states and does not generally execute all checks described in the
+YAML. The included paper documents these limits. No measured accuracy, productivity,
+or cost gains are claimed.
+
+Figure 1 is an intended evidence flow. Figure 2 counts verification types from the
+package YAML. Regenerate them from `docs/research/build_figures.py` using the
+dependencies in `requirements-figures.txt`; the chart is not a performance benchmark.
+
+## Attribution and licensing
+
+By Andrés Felipe Reyes Gallego. See [source credits](docs/09-creditos.md). This
+repository is released under the [MIT License](LICENSE). Third-party notices in the
+credits page are preserved; no third-party code is redistributed here.
