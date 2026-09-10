@@ -19,7 +19,7 @@ contenedor sirva para los dos.
 En el repo del framework, apuntar `.gitmodules` al catálogo real y fijarlo:
 
 ```bash
-git submodule add https://github.com/<ORG>/minos-skills.git .claude/skills
+git submodule add https://github.com/andresreyes/minos-skills.git .claude/skills
 cd .claude/skills && git checkout v1.0.0 && cd -
 git add .gitmodules .claude/skills && git commit -m "Pin catálogo v1.0.0"
 ```

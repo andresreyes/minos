@@ -12,6 +12,10 @@
   <img alt="gates" src="https://img.shields.io/badge/gates%20declarados-23-lightgrey">
 </p>
 
+<p align="center">
+  <strong>Español</strong> · <a href="README.en.md">English</a>
+</p>
+
 ---
 
 En la mitología, Minos juzga a cada alma que se le presenta. Aquí es lo mismo: un
@@ -71,7 +75,7 @@ archivo de afirmaciones y el código, nunca el razonamiento del autor. Ver
 ## Instalación
 
 ```bash
-git clone https://github.com/<ORG>/minos.git
+git clone https://github.com/andresreyes/minos.git
 cd minos
 ./scripts/bootstrap.sh
 ```
@@ -82,7 +86,7 @@ cd minos
 > `docs/gitmodules.plantilla` y pínealo por SHA:
 >
 > ```bash
-> git submodule add -b main https://github.com/<ORG>/minos-skills.git .claude/skills
+> git submodule add -b main https://github.com/andresreyes/minos-skills.git .claude/skills
 > ```
 
 Para integrarlo al template de Coder, ver `coder/main.tf` y `docs/03-adopcion-coder.md`.

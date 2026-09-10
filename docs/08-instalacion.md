@@ -19,21 +19,21 @@ Nada más. Sin Node, sin Docker, sin servicios que levantar, sin paquetes que in
 cd minos-skills
 git init && git add -A && git commit -m "Catálogo v1.2.0"
 git tag v1.2.0
-git remote add origin https://github.com/<ORG>/minos-skills.git
+git remote add origin https://github.com/andresreyes/minos-skills.git
 git push -u origin main --tags
 
 # 2. El framework — cada equipo tendrá el suyo
 cd ../minos
 git init && git add -A && git commit -m "Framework v1.2.0"
-git submodule add https://github.com/<ORG>/minos-skills.git .claude/skills
+git submodule add https://github.com/andresreyes/minos-skills.git .claude/skills
 cd .claude/skills && git checkout v1.2.0 && cd ../..
 git add .gitmodules .claude/skills && git commit -m "Pin catálogo v1.2.0"
 git tag v1.2.0
-git remote add origin https://github.com/<ORG>/minos.git
+git remote add origin https://github.com/andresreyes/minos.git
 git push -u origin main --tags
 ```
 
-Reemplaza `<ORG>` por tu organización. Si tu servidor Git no es GitHub, cambia la
+Reemplaza `andresreyes` por tu organización. Si tu servidor Git no es GitHub, cambia la
 URL: nada del framework depende de GitHub en particular.
 
 ---
@@ -49,7 +49,7 @@ variables:
 
 ```hcl
 variable "framework_repo" {
-  default = "https://github.com/<ORG>/minos.git"
+  default = "https://github.com/andresreyes/minos.git"
 }
 variable "framework_ref" {
   default = "v1.2.0"      # pinea a un tag; nunca a main
@@ -86,7 +86,7 @@ Debe terminar en `15 correcto(s), 0 fallo(s)`.
 **B.1 — Clonar con submódulos**
 
 ```bash
-git clone --recurse-submodules https://github.com/<ORG>/minos.git
+git clone --recurse-submodules https://github.com/andresreyes/minos.git
 cd minos
 ```
 

@@ -4,7 +4,7 @@
 variable "framework_repo" {
   description = "URL HTTPS del repo del framework"
   type        = string
-  default     = "https://github.com/<ORG>/minos.git"
+  default     = "https://github.com/andresreyes/minos.git"
 }
 
 variable "framework_ref" {

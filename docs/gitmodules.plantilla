@@ -1,4 +1,4 @@
 [submodule ".claude/skills"]
 	path = .claude/skills
-	url = https://github.com/<ORG>/minos-skills.git
+	url = https://github.com/andresreyes/minos-skills.git
 	branch = main
